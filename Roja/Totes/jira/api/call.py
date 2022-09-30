@@ -3,10 +3,10 @@ import django_atlassian.models.connect
 import jwt
 import requests
 import sys
-from totes.core.utils.config import *
-from totes.core.auth.jwt import *
-from totes.core.utils.logger import *
-from totes.jira.dataprocessor.query import query_builder
+from Roja.Totes.core.utils.config import *
+from Roja.Totes.core.auth.jwt import *
+from Roja.Totes.core.utils.logger import *
+from Roja.Totes.jira.dataprocessor.query import query_builder
 RawCache = "RawData"
 
 from django_atlassian.backends.jira.base import *

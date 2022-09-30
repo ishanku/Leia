@@ -1,4 +1,4 @@
-from totes.core.utils.logger import *
+from Roja.Totes.core.utils.logger import *
 import sys
 
 

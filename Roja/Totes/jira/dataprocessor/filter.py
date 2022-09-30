@@ -1,5 +1,5 @@
-from totes.core.cache.redis import *
-from totes.jira.dataprocessor.summer import *
+from Roja.Totes.core.cache.redis import *
+from Roja.Totes.jira.dataprocessor.summer import *
 
 
 def how(data, fine_data, data_format="fine", data_from_cache=False, cache_name="ProcessedCache"):

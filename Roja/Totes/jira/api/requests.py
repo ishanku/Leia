@@ -1,6 +1,6 @@
 import requests
 import sys
-from totes.core.utils.config import *
+from Roja.Totes.core.utils.config import *
 
 def issue(params):
     # log("Starting Function "+whoami())

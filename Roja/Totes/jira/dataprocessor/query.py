@@ -1,6 +1,6 @@
 import sys
 
-from totes.core.utils.logger import *
+from Roja.Totes.core.utils.logger import *
 
 
 def build_time_query(key='Created', value='this_week'):

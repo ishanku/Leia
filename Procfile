@@ -1,1 +1,1 @@
-web: gunicorn Wake.wsgi
+web: gunicorn Leia.wsgi
