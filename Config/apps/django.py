@@ -8,3 +8,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.forms",
 ]
+
+if SOCIALACCOUNT_ENABLED:
+    INSTALLED_APPS += [ 'django.contrib.sites' ]
