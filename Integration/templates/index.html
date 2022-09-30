@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Jira{% endblock %}
+{% block head %}
+{#  <link rel="stylesheet" href="https://unpkg.com/@atlaskit/css-reset@2.0.0/dist/bundle.css" media="all">#}
+  <script src="https://connect-cdn.atl-paas.net/all.js" data-options="resize:false;base:true"></script>
+
+    <script src="{% static 'js/url.js' %}"></script>
+    <script src="{% static 'js/variables.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/first_row.css' %}">
+
+{% endblock %}
+{% block content %}
+    <main class="wrapper">
+        <section class="left">
+            {% include "includes/leftnav.html" %}
+        </section>
+        <section  class="content">
+            <div id="top">
+                <div id="singles-header"></div>
+                <div id="singles"></div>
+            </div>
+            <div id="secondrow">
+                <div id="bar-chart"></div>
+                <div id="score-table"></div>
+            </div>
+            <div id="thirdrow"></div>
+            <div id="tablerow">
+                <div id="tableDiv" class="container-fluid">
+                    <div class="jumbotron presence-filter-section">
+
+                        <form id="myDynamicForm" class="form-horizontal">
+                            <div id="myDynamicFilterTable" class="myDynamicFilterTable">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="myDynamicTable">
+                    </div>
+                    <div class="rowcountdiv"></div>
+                </div>
+                <div id="popDiv" class="container-fluid">
+
+                </div>
+            </div>
+        </section>
+        <section class="right"></section>
+    </main>
+
+    <script src="{% static 'js/AP.js' %}"></script>
+    <script src="{% static 'js/singles.js' %}"></script>
+    <script src="{% static 'js/events.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

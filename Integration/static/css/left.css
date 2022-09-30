@@ -1,0 +1,25 @@
+.l-main{
+top : 5vh;
+background-color: rgb(93, 91, 91);
+border: 1px solid rgb(174, 174, 174);
+height: 90vh;
+font-size: medium;
+padding: 5px 5px 5px 5px;
+}
+.l-links{
+    background-color:rgb(49, 48, 48) ;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 5px;
+    border: 1px solid rgb(174, 174, 174);
+}
+a
+{
+    color: aliceblue;
+    text-decoration: none;
+}
+a:hover{
+    color: rgb(227, 255, 213);
+    text-decoration: none;
+    opacity: 0.75;
+}

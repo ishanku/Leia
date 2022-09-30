@@ -1,0 +1,36 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/left.css' %}">
+<link rel="stylesheet" href="{% static 'css/dropdown.css' %}">
+
+<div class="l-main">
+    <div class="l-links">
+        <div class="dropdown dropdown-dark">
+      <select name="task-counter" id="task-counter" class="dropdown-select">
+        <option value=""> Task Counter </option>
+        <option value="today">Today</option>
+        <option value="thisweek">This Week</option>
+        <option value="thismonth">This Month</option>
+      </select>
+        </div>
+    </div>
+    <div class="l-links">
+        <a href="javascript:clientWise()">Client Wise</a>
+    </div>
+
+    <div class="l-links">
+        <a href="javascript:reloadTable(null,false)">Table</a>
+    </div>
+
+    <div class="l-links">
+    <a href="">Performance Score</a>
+    </div>
+
+    <div class="l-links">
+        <a href="javascript:reloadBarChart(null,false)">Bar</a>
+    </div>
+
+    <div class="l-links">
+        <a href="">Next</a>
+    </div>
+
+</div>

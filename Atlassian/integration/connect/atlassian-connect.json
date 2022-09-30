@@ -1,0 +1,32 @@
+{
+     "name": "KPI's Next Door",
+     "description": "KPI Dashboard",
+     "key": "com.totesoft.wake",
+     "baseUrl": "https://ajishra.herokuapp.com",
+     "vendor": {
+         "name": "Totesoft LLC <br>, Altanta, GA <br> USA",
+         "url": "https://www.totesoft.com"
+     },
+     "enableLicensing": true,
+     "authentication": {
+         "type": "jwt"
+     },
+      "lifecycle": {
+      "installed": "atlassian/installed/",
+      "uninstalled": "atlassian/uninstalled/"
+      },
+      "scopes": ["read", "write", "ACT_AS_USER"],
+     "apiVersion": 1,
+     "modules": {
+         "generalPages": [
+             {
+                 "url": "/index.html",
+                 "key": "Totesoft",
+                 "location": "system.top.navigation.bar",
+                 "name": {
+                     "value": "KPIs Next Door"
+                 }
+             }
+         ]
+     }
+}

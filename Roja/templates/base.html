@@ -1,0 +1,28 @@
+{% load static %}
+{#{% load socialaccount %}#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon_io/favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://kit.fontawesome.com/a5d74fc812.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+<div id="root" class="container-fluid">
+    <header id="welcome-header">
+        {% include "includes/nav.html" %}
+    </header>
+        {% block content %}{% endblock %}
+    <footer>
+        @Copyright to Totesoft LLC 2022
+    </footer>
+</div>
+
+</body>
+</html>

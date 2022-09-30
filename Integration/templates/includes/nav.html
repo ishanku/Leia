@@ -1,0 +1,35 @@
+{% load static %}
+{#{% load socialaccount %}#}
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+<nav>
+    <div class="nav-rows">
+        <div class="nav-cols">
+            <img src="{% static 'images/logo.svg' %}" width="37" height="37" alt="Logo">
+        </div>
+        <div class="nav-cols"><h2>Handy Tools</h2></div>
+        <div class="nav-cols" id="nav-welcome">
+        </div>
+
+{#    {% if user.is_authenticated %}#}
+{#        <div class="nav-cols">#}
+{#        <p>Welcome, You are logged in as {{ user.username }}</p>#}
+{#        </div>#}
+{#        <div class="nav-cols">#}
+{#        <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">"My Profile"</a>#}
+{#        </div>#}
+{#        <div class="nav-cols">#}
+{#        <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>#}
+{#        </div>#}
+{#    {% else %}#}
+{#        <a href="{% provider_login_url 'google' %}">Login With Google</a>#}
+{#        <div class="nav-cols">#}
+{#        <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">Sign In with Google#}
+{#        </a>#}
+{#         </div>#}
+{#         <div class="nav-cols">#}
+{#        <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>#}
+{#         </div>#}
+{#    {% endif %}#}
+
+     </div>
+</nav>
