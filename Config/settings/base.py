@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+## Social Accounts
+SOCIALACCOUNT_ENABLED = TRUE
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,21 +45,25 @@ from Config.modules.numbers import * # noqa
 INSTALLED_APPS += THIRD_PARTY_APPS
 INSTALLED_APPS += OWN_APPS
 
+ROOT_URLCONF = 'Leia.urls'
+WSGI_APPLICATION = 'Leia.wsgi.application'
+#--- For All Auth ?? ---
+if SOCIALACCOUNT_ENABLED:
+    MIGRATION_MODULES = {"sites": "Config.contrib.sites.migrations"}
+    SITE_ID = 1
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    "django.middleware.common.BrokenLinkEmailsMiddleware",
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'Leia.urls'
-WSGI_APPLICATION = 'Leia.wsgi.application'
-#--- For All Auth ?? ---
-MIGRATION_MODULES = {"sites": "Config.contrib.sites.migrations"}
-SITE_ID = 1
 
 TEMPLATES = [
     {
@@ -127,4 +134,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SOCIALACCOUNT_ENABLED = TRUE
