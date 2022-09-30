@@ -129,6 +129,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
