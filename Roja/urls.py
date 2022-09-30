@@ -10,5 +10,5 @@ urlpatterns = [
     path("users/", include("Roja.users.urls", namespace="users")),
    # path("atlassian/", include('django_atlassian.urls')),
     path("jira/", include('Integration.jira.urls')),
-    path("accounts/", include("allauth.urls")),
+
 ]

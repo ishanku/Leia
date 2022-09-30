@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('Roja.urls')),
     path("/", include('Roja.urls')),
+    #---- Social Auth------------
+    path("accounts/", include("allauth.urls")),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
