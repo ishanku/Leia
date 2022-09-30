@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import jwt
 import time
 import json
-import urlparse
+import urllib.parse as urlparse
 import urllib
 import hashlib
 import base64
