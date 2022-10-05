@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+from Config.modules.environment import *
 import os
 import sys
 
+current_setting_module = " Config.settings." + env('CURRENT_ENV')
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Leia.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', current_setting_module)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

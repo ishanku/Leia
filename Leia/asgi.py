@@ -8,9 +8,9 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 """
 
 import os
-
+from Config.modules.environment import *
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Leia.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', "Config.settings." + env('CURRENT_ENV'))
 
 application = get_asgi_application()

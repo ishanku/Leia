@@ -1,9 +1,18 @@
+from Config.basesettings import *
+
+if SOCIALACCOUNT_ENABLED:
+    from Config.modules.social import *
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
+
 if SOCIALACCOUNT_ENABLED:
+    #Migration Modules
+    MIGRATION_MODULES = {"sites": "Config.contrib.sites.migrations"}
+    SITE_ID = 1
+    #More for social auth
     AUTHENTICATION_BACKENDS += [ "allauth.account.auth_backends.AuthenticationBackend"]
     AUTH_USER_MODEL = "users.User"
     LOGIN_REDIRECT_URL = "users:redirect"

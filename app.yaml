@@ -1,7 +1,7 @@
 runtime: python310
 
 env_variables:
-  # This setting is used in settings.py to configure your ALLOWED_HOSTS
+  # This setting is used in mysettings.py to configure your ALLOWED_HOSTS
   # APPENGINE_URL: PROJECT_ID.uc.r.appspot.com
 
 handlers:

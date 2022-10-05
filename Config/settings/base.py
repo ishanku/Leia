@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
-## Social Accounts
-SOCIALACCOUNT_ENABLED = TRUE
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,23 +31,23 @@ ALLOWED_HOSTS = []
 from Config.apps.django import *
 from Config.apps.thirdparty import *
 from Config.apps.own import *
+
+INSTALLED_APPS += THIRD_PARTY_APPS
+INSTALLED_APPS += OWN_APPS
+
+
 from Config.modules.environment import *  # noqa
 from Config.modules.auth import *  # noqa
-from Config.modules.social import *
+
+
 from Config.modules.statics import *
 from Config.modules.logger import *  # noqa
 from Config.modules.numbers import * # noqa
 
-# Application definition
-INSTALLED_APPS += THIRD_PARTY_APPS
-INSTALLED_APPS += OWN_APPS
 
 ROOT_URLCONF = 'Leia.urls'
 WSGI_APPLICATION = 'Leia.wsgi.application'
-#--- For All Auth ?? ---
-if SOCIALACCOUNT_ENABLED:
-    MIGRATION_MODULES = {"sites": "Config.contrib.sites.migrations"}
-    SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
