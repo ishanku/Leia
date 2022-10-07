@@ -11,4 +11,5 @@ INSTALLED_APPS = [
 ]
 
 if SOCIALACCOUNT_ENABLED:
-    INSTALLED_APPS += [ 'django.contrib.sites' ]
+    INSTALLED_APPS += [
+                        'django.contrib.sites', ]

@@ -3,7 +3,6 @@ from Config.basesettings import *
 THIRD_PARTY_APPS = [
                 "crispy_forms",
                 "corsheaders",
-              #  'Atlassian',
                 ]
 
 if SOCIALACCOUNT_ENABLED:

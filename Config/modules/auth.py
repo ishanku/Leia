@@ -1,14 +1,12 @@
 from Config.basesettings import *
 
-if SOCIALACCOUNT_ENABLED:
-    from Config.modules.social import *
-
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-
 if SOCIALACCOUNT_ENABLED:
+    from Config.modules.social import *
+    AUTHENTICATION_BACKENDS += ['allauth.account.auth_backends.AuthenticationBackend']
     #Migration Modules
     MIGRATION_MODULES = {"sites": "Config.contrib.sites.migrations"}
     SITE_ID = 1
@@ -44,3 +42,6 @@ if SOCIALACCOUNT_ENABLED:
     ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     ACCOUNT_ADAPTER = "Roja.users.adapters.AccountAdapter"
     SOCIALACCOUNT_ADAPTER = "Roja.users.adapters.SocialAccountAdapter"
+
+    SOCIALACCOUNT_QUERY_EMAIL = True
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

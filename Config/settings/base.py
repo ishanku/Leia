@@ -35,7 +35,6 @@ from Config.apps.own import *
 INSTALLED_APPS += THIRD_PARTY_APPS
 INSTALLED_APPS += OWN_APPS
 
-
 from Config.modules.environment import *  # noqa
 from Config.modules.auth import *  # noqa
 
@@ -77,10 +76,9 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                # allauth specific context processors
-                "django.core.context_processors.request",
-                "allauth.account.context_processors.account",
-                "allauth.socialaccount.context_processors.socialaccount",
+                # # allauth specific context processors
+                # 'allauth.account.context_processors.account',
+                # 'allauth.socialaccount.context_processors.socialaccount',
             ],
         },
     },
