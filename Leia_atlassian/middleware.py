@@ -10,13 +10,13 @@ from django.apps import apps
 from django.db import models, connections
 from django.db.utils import ConnectionDoesNotExist 
 
-from django_atlassian.models.connect import SecurityContext
-from django_atlassian.models.djira import create_model, populate_model
+from Leia_atlassian.models.connect import SecurityContext
+from Leia_atlassian.models.djira import create_model, populate_model
 
-logger = logging.getLogger('django_atlassian')
+logger = logging.getLogger('Leia_atlassian')
 lock = threading.Lock()
 
-class DjangoAtlassianAuthenticator(atlassian_jwt.Authenticator):
+class DjangoLeia_atlassianAuthenticator(atlassian_jwt.Authenticator):
     def get_shared_secret(self, client_key):
         sc = SecurityContext.objects.filter(client_key=client_key).get()
         return sc.shared_secret
@@ -34,7 +34,7 @@ class JWTAuthenticationMiddleware(MiddlewareMixin):
             params.append("%s=%s" % (key, request.GET.get(key, None)))
         query = "&".join(params)
 
-        auth = DjangoAtlassianAuthenticator()
+        auth = DjangoLeia_atlassianAuthenticator()
         uri = request.path
         if query:
             uri = "%s?%s" % (uri, query)
@@ -53,7 +53,7 @@ class JWTAuthenticationMiddleware(MiddlewareMixin):
 
         with lock: 
             try:
-                model = apps.get_model('django_atlassian', client_key)
+                model = apps.get_model('Leia_atlassian', client_key)
             except LookupError:
                 logger.info("Model %s not found, creating it", str(client_key))
                 model = create_model(str(client_key))
@@ -67,7 +67,7 @@ class JWTAuthenticationMiddleware(MiddlewareMixin):
     def _create_database(self, name, sc):
         new_db = {}
         new_db['id'] = name
-        new_db['ENGINE'] = 'django_atlassian.backends.jira'
+        new_db['ENGINE'] = 'Leia_atlassian.backends.jira'
         new_db['NAME'] = sc.host
         new_db['USER'] = ''
         new_db['PASSWORD'] = ''

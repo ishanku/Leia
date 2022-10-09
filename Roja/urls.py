@@ -8,7 +8,7 @@ urlpatterns = [
     path("", views.index),
     path("index.html", views.index),
     path("users/", include("Roja.users.urls", namespace="users")),
-   # path("atlassian/", include('django_atlassian.urls')),
+    path("atlassian/", include('Leia_atlassian.urls')),
     path("jira/", include('Integration.jira.urls')),
 
 ]

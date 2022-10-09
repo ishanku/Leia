@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_exempt
 
-from models.connect import SecurityContext
+from Leia_atlassian.models.connect import SecurityContext
 
 @csrf_exempt
 def installed(request):
