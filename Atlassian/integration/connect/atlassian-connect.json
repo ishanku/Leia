@@ -13,7 +13,8 @@
      },
       "lifecycle": {
       "installed": "atlassian/installed/",
-      "uninstalled": "atlassian/uninstalled/"
+        "update": "atlassian/installed/",
+      "uninstalled": "atlassian/installed/"
       },
       "scopes": ["read", "write", "ACT_AS_USER"],
      "apiVersion": 1,
