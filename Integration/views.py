@@ -12,7 +12,7 @@ PROJECT_DIR = Path(__file__).resolve().parent.parent
 
 # Create your views here.
 def atlassian(request):
-    jsonPath = os.path.join(PROJECT_DIR, "Atlassian/integration/connect/atlassian-connect.json")
+    jsonPath = os.path.join(PROJECT_DIR, "Leia_atlassian/integration/connect/atlassian-connect.json")
     context = json.dumps((read_json(jsonPath)), indent=3)
     return HttpResponse(context, content_type='application/json')
 
