@@ -15,16 +15,16 @@ ALLOWED_HOSTS = [
                 'ajishra.herokuapp.com'
                 ]
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'OPTIONS': {
-#             'options': '-c search_path=' + env('DB_USER')
-#         },
-#         'NAME': env('DB'),
-#         'USER': env("DB_USER"),
-#         'PASSWORD': env("DB_PASS"),
-#         'HOST': env("DB_HOST"),
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'OPTIONS': {
+            'options': '-c search_path=' + env('DB_USER')
+        },
+        'NAME': env('DB'),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASS"),
+        'HOST': env("DB_HOST"),
+        'PORT': '5432',
+    }
+}
