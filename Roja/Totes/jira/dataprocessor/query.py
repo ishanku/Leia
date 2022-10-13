@@ -27,7 +27,7 @@ def build_time_query(key='Created', value='this_week'):
 
 
 # noinspection PyBroadException
-def query_builder(dashboard='Performance Score', key="Completed Date", startAt=0, duration=None):
+def query_builder(dashboard='Performance Score', key="Created", startAt=0, duration=None):
     # logNow("Starting Function " + whoami())
     status = bool(True)
     message = None

@@ -10,10 +10,10 @@ def index(request):
     print("Printing the Base URL")
 
     print(base_url)
-    params = query_builder()
+    params = query_builder("Normal")
     if params[1]:
         params = params[0]
-        
+
     results = issue(params)
 
     print(results.text)
