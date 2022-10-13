@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.decorators.clickjacking import xframe_options_exempt
 from Roja.Totes.jira.api.requests import *
+from Roja.Totes.jira.dataprocessor.query import *
+
 # Create your views here.
 @xframe_options_exempt
 def index(request):
@@ -8,8 +10,8 @@ def index(request):
     print("Printing the Base URL")
 
     print(base_url)
-    print("Getting Fields")
-    results = issue("jql='Created' >=startOfWeek(-2)")
+    params = query_builder()
+    results = issue(params)
     print(results.ok)
     print(results.text)
     # if results.ok:
