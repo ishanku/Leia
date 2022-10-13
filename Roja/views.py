@@ -12,6 +12,6 @@ def index(request):
     results = issue("jql='Created' >=startOfWeek(-2)")
     print(results.ok)
     print(results.text)
-    if results.ok:
-        print(result.json())
+    # if results.ok:
+    #     print(result.json())
     return render(request, "index.html")
