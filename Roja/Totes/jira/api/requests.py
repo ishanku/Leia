@@ -13,10 +13,10 @@ def issue(params):
         print(params)
         print(url)
         #
-        # userID = apiUser()
-        # apiToken = apiKey()
+        userID = apiUser()
+        apiToken = apiKey()
 
-        # auth = HTTPBasicAuth(userID, apiToken)
+        auth = HTTPBasicAuth(userID, apiToken)
 
         headers = {
             "Accept": "application/json"
@@ -27,7 +27,7 @@ def issue(params):
             url,
             headers=headers,
             params=params,
-           # auth=auth
+           auth=auth
         )
         # ############################ Verify the Total Record Count, If more than the max results#####################
     except:
