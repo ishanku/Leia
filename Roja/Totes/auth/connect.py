@@ -13,7 +13,7 @@ def getIssue(params):
 
     print(url)
 
-    req = requests(url, method = method)
+    req = Request(url, method = method)
 
     token = Jwt()
     auth = f"JWT {token}"
