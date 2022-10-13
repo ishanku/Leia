@@ -16,7 +16,7 @@ def index(request):
 
     results = issue(params)
 
-    print(results.text)
-    # if results.ok:
-    #     print(result.json())
+    print(results)
+    if results.ok:
+        print(result.json())
     return render(request, "index.html")
