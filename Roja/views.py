@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.clickjacking import xframe_options_exempt
 from Roja.Totes.jira.api.requests import *
 from Roja.Totes.jira.dataprocessor.query import *
+import json
 
 # Create your views here.
 @xframe_options_exempt
@@ -18,5 +19,5 @@ def index(request):
 
     print(results)
     if results:
-        print(result.json())
+        print(results.json())
     return render(request, "index.html")

@@ -4,6 +4,7 @@ import sys
 from Roja.Totes.core.utils.config import *
 from Roja.Totes.core.utils.logger import *
 
+
 def issue(params):
     # log("Starting Function "+whoami())
     position = "I m in Get Response Service "
