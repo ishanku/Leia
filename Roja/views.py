@@ -3,6 +3,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from Roja.Totes.jira.api.requests import *
 from Roja.Totes.jira.dataprocessor.query import *
 import json
+from Roja.Totes.auth.connect import *
 
 # Create your views here.
 @xframe_options_exempt
@@ -15,7 +16,7 @@ def index(request):
     if params[1]:
         params = params[0]
 
-    results = issue(params)
+    results = getIssue(params)
 
     print(results)
     if results:

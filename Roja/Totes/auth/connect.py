@@ -1,0 +1,24 @@
+import requests
+import atlassian_jwt
+from Roja.Totes.core.utils.config import *
+from Roja.Totes.core.utils.logger import *
+from Roja.Totes.core.auth.jwt import *
+from urllib.request import *
+
+def getIssue(params):
+
+    method='GET'
+    apiName = "rest/api/3/search"
+    url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
+
+    print(url)
+
+    req = requests(url, method = method)
+
+    token = Jwt()
+    auth = f"JWT {token}"
+
+    req.add_header('Content-Type', 'application/json')
+    req.add_header('Authorization', auth)
+    result = urlopen(req)
+    return result

@@ -14,7 +14,6 @@ def issue(params):
         print("--------Params-------")
         print(params)
         print(url)
-        #
         userID = apiUser()
         apiToken = apiKey()
 
