@@ -1,4 +1,5 @@
 import requests
+from requests.auth import HTTPBasicAuth
 import sys
 from Roja.Totes.core.utils.config import *
 from Roja.Totes.core.utils.logger import *
