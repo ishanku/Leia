@@ -9,7 +9,7 @@ def index(request):
 
     print(base_url)
     print("Getting Fields")
-    results = issue('field')
+    results = issue("jql='Created' >=startOfWeek(-2)")
     print(results.ok)
     print(results.text)
     if results.ok:
