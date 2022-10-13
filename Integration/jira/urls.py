@@ -19,6 +19,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from Integration import views
 
+app_name = 'integration.jira'
+
 urlpatterns = [
     path("atlassian-connect", views.atlassian, name='atlassian'),
    # path("total/<str:task_status>", Total.as_view(), name="total"),

@@ -13,12 +13,13 @@ ALLOWED_HOSTS = [
                 '127.0.0.1',
                 'gruffalo.io',
                 'ajishra.herokuapp.com',
+                '9c90-5-180-208-246.ngrok.io'
                 ]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'OPTIONS': {
-            'options': '-c search_path=' + env('DB_USER')
+            'options': '-c search_path=' + env('DB_SCHEMA')
         },
         'NAME': env('DB'),
         'USER': env("DB_USER"),
