@@ -2,7 +2,7 @@
      "name": "KPI's Next Door",
      "description": "KPI Dashboard",
      "key": "com.totesoft.wake",
-     "baseUrl": "https://8712-5-180-208-246.ngrok.io",
+     "baseUrl": "https://ajishra.herokuapp.com",
      "vendor": {
          "name": "Totesoft LLC <br>, Altanta, GA <br> USA",
          "url": "https://www.totesoft.com"
