@@ -6,6 +6,7 @@ from pathlib import Path
 from Roja.Totes.core.utils.config import *
 from Roja.Totes.core.utils.file import *
 import json
+from Roja.Totes.core.utils.config import *
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +21,6 @@ class Total(View):
     apiName = "rest/api/3/search"
     uri = "https://" + domainName() + ".atlassian.net/" + apiName
     user = False
-    #token = Jwt()
 
     def get(self, request, *args, **kwargs):
         self.task_status = kwargs.get('task_status', "Done")
