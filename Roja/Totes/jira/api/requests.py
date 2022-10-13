@@ -8,6 +8,9 @@ def issue(params):
     try:
         apiName = "rest/api/3/search"
         url = "https://" + domainName() + ".atlassian.net/" + apiName
+        print("--------Params-------")
+        print(params)
+        print(url)
         #
         # userID = apiUser()
         # apiToken = apiKey()
