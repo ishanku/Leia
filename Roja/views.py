@@ -11,8 +11,11 @@ def index(request):
 
     print(base_url)
     params = query_builder()
+    if params[1]:
+        params = params[0]
+        
     results = issue(params)
-    print(results.ok)
+
     print(results.text)
     # if results.ok:
     #     print(result.json())
