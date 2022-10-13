@@ -9,7 +9,9 @@ def index(request):
 
     print(base_url)
     print("Getting Fields")
-    result=issue('field')
-    if result.ok:
+    results = issue('field')
+    print(results.ok)
+    print(results.text)
+    if results.ok:
         print(result.json())
     return render(request, "index.html")
