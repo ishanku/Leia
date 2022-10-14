@@ -11,10 +11,6 @@ def getIssue(params):
     apiName = "rest/api/3/search"
     url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
 
-    headers = {
-        "Accept": "application/json",
-        "Authorization" : auth
-    }
     print(url)
 
     req = Request(url, method = method)
