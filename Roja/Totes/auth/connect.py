@@ -8,13 +8,14 @@ from urllib.request import *
 
 
 class getIssue():
-
     method = 'GET'
-    apiName = "rest/api/3/search"
+
 
 
 
     def get(self=None):
+        method = 'GET'
+        apiName = "rest/api/3/search"
         params = query_builder("Normal")
         if params[1]:
             params = params[0]
