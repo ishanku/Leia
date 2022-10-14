@@ -12,15 +12,17 @@ class getIssue():
     method = 'GET'
     apiName = "rest/api/3/search"
 
-    params = query_builder("Normal")
-    if params[1]:
-        params = params[0]
-    url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
 
-    def get(self=self):
-        print(self.url)
 
-        req = Request(self.url, method = method)
+    def get(self=None):
+        params = query_builder("Normal")
+        if params[1]:
+            params = params[0]
+        url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
+
+        print(url)
+
+        req = Request(url, method = method)
 
         token = Jwt()
         #auth = f"JWT {token}"
