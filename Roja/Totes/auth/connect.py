@@ -3,7 +3,9 @@ import atlassian_jwt
 from Roja.Totes.core.utils.config import *
 from Roja.Totes.core.utils.logger import *
 from Roja.Totes.core.auth.jwt import *
+from Roja.Totes.jira.dataprocessor.query import *
 from urllib.request import *
+
 
 class getIssue():
 
