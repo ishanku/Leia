@@ -17,9 +17,9 @@ def index(request):
     params = query_builder("Normal")
     if params[1]:
         params = params[0]
-    results = getIssue.get()
-
-    print(results)
-    if results:
-        print(results.json())
+    # results = getIssue.get()
+    #
+    # print(results)
+    # if results:
+    #     print(results.json())
     return render(request, "index.html")
