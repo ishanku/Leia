@@ -1,5 +1,5 @@
 import requests
-import atlassian_jwt
+from Leia_atlassian.atlassian_jwt.authenticate import *
 from Roja.Totes.core.utils.config import *
 from Roja.Totes.core.utils.logger import *
 from Roja.Totes.core.auth.jwt import *
@@ -38,6 +38,7 @@ class getIssue():
             "Authorization" : auth
         }
 
-        result = atlassian_jwt.authenticate.Authenticator(self, method, url, token)
+        #result = atlassian_jwt.authenticate.Authenticator(self, method, url, token)
+        result = Authenticator(self, method, url, token)
         #result = urlopen(req)
         return result
