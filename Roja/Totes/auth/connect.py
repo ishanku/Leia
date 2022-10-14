@@ -27,6 +27,7 @@ def getIssue(params):
         "Content-Type" : "application/json",
         "Authorization" : auth
     }
-    result = atlassian_jwt.authenticate.Authenticator(method, url, headers , token)
+
+    result = atlassian_jwt.authenticate.Authenticator(None, method, url, token)
     #result = urlopen(req)
     return result
