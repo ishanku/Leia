@@ -17,7 +17,7 @@ class getIssue():
         params = params[0]
     url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
 
-    def get(self):
+    def get(self=None):
         print(url)
 
         req = Request(url, method = method)
