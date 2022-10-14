@@ -17,7 +17,7 @@ def index(request):
     params = query_builder("Normal")
     if params[1]:
         params = params[0]
-    results = getIssue(params)
+    results = getIssue.get()
 
     print(results)
     if results:
