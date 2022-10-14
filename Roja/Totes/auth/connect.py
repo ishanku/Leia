@@ -28,6 +28,6 @@ def getIssue(params):
         "Authorization" : auth
     }
 
-    result = atlassian_jwt.authenticate.Authenticator(None, method, url, token)
+    result = atlassian_jwt.authenticate.Authenticator(method, url, token)
     #result = urlopen(req)
     return result
