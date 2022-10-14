@@ -17,10 +17,10 @@ class getIssue():
         params = params[0]
     url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
 
-    def get(self=None):
-        print(url)
+    def get(self=self):
+        print(self.url)
 
-        req = Request(url, method = method)
+        req = Request(self.url, method = method)
 
         token = Jwt()
         #auth = f"JWT {token}"
