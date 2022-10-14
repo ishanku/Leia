@@ -7,10 +7,14 @@ from urllib.request import *
 
 def getIssue(params):
 
-    method='GET'
+    method = 'GET'
     apiName = "rest/api/3/search"
     url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
 
+    headers = {
+        "Accept": "application/json",
+        "Authorization" : auth
+    }
     print(url)
 
     req = Request(url, method = method)
@@ -21,6 +25,12 @@ def getIssue(params):
 
     req.add_header('Content-Type', 'application/json')
     req.add_header('Authorization', auth)
-    result = atlassian_jwt.authenticate.Authenticator(method, url, req)
+
+    headers = {
+        "Accept": "application/json",
+        "Content-Type" : "application/json",
+        "Authorization" : auth
+    }
+    result = atlassian_jwt.authenticate.Authenticator(method, url, headers)
     #result = urlopen(req)
     return result
