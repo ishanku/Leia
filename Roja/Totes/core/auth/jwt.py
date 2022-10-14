@@ -9,4 +9,5 @@ def Jwt():
     key = 'b1c7cfe8-9f87-3f19-83f2-83e38a5ae089'
     shared_secret = 'ATCObQrv98enQA7YN6wo6GrDqqQCiDO4rQDdZCdAfHVJURZW9Peil5UKlg'
     token = encode_token("POST", uri_search_pattern, key, shared_secret)
+    print("Token  --- " + token)
     return token

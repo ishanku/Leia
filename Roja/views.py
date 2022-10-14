@@ -1,9 +1,11 @@
+import atlassian_jwt.authenticate
 from django.shortcuts import render
 from django.views.decorators.clickjacking import xframe_options_exempt
 from Roja.Totes.jira.api.requests import *
 from Roja.Totes.jira.dataprocessor.query import *
 import json
 from Roja.Totes.auth.connect import *
+import atlassian_jwt
 
 # Create your views here.
 @xframe_options_exempt
@@ -15,7 +17,6 @@ def index(request):
     params = query_builder("Normal")
     if params[1]:
         params = params[0]
-
     results = getIssue(params)
 
     print(results)

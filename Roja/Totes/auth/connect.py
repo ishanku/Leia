@@ -16,7 +16,8 @@ def getIssue(params):
     req = Request(url, method = method)
 
     token = Jwt()
-    auth = f"JWT {token}"
+    #auth = f"JWT {token}"
+    auth = {'Authorization': 'JWT {}'.format(token)}
 
     req.add_header('Content-Type', 'application/json')
     req.add_header('Authorization', auth)
