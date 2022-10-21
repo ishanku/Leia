@@ -9,7 +9,7 @@ logger = logging.getLogger(__file__)
 def log(message, key='info', console=True, app_name=None):
     decorator = "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     if app_name is None:
-        app_name = "_Wake"
+        app_name = "Leia"
 
     if console:
         print(decorator)

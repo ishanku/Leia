@@ -6,15 +6,50 @@ hash. See `Understanding JWT for Atlassian Connect`_ for more details.
 .. Understanding JWT for Atlassian Connect
    _https://developer.atlassian.com/blog/2015/01/understanding-jwt/
 """
-
+from Roja.Totes.core.utils.logger import *
 import abc
 import collections
-
+from Roja.Totes.auth.connect import *
 import jwt as jwt
 from jwt import DecodeError
 
 from .url_utils import hash_url, parse_query_params
 
+
+def getAuthenticated(url, params, headers, algorithms, leeway=90, token=None, http_method='GET'):
+    # token = Authenticator._get_token(
+    #     headers=headers,
+    #     query_params=parse_query_params(url))
+
+    if not token:
+        print("---------get token----------")
+        token = Authenticator._get_token(
+            headers=headers,
+            query_params=parse_query_params(url))
+
+    claims = jwt.decode(token, algorithms=algorithms,
+                        options={"verify_signature": False})
+    print("---------------------------------------------------------")
+    print(claims['qsh'])
+    print("---------------------------------------------------------")
+    print(hash_url(http_method,url))
+    if claims['qsh'] != hash_url(http_method, url):
+        raise DecodeError('qsh does not match')
+    shared_secret = 'ATCObQrv98enQA7YN6wo6GrDqqQCiDO4rQDdZCdAfHVJURZW9Peil5UKlg'
+    # verify shared secret
+    jwt.decode(
+        token,
+        audience=claims.get('aud'),
+        key=shared_secret,
+        algorithms=algorithms,
+        leeway=leeway)
+
+    # return client key, claims
+    AuthResult = collections.namedtuple('AuthResult',
+                                        ['client_key', 'claims'])
+    print("Auth Result")
+    print(AuthResult)
+    return AuthResult(claims['iss'], claims)
 
 class Authenticator(object):
     """An abstract base class for authenticating Atlassian Connect requests.
@@ -44,33 +79,35 @@ class Authenticator(object):
             # authentication failed
             pass
     """
-
     # __metaclass__ = abc.ABCMeta
 
     def __init__(self, algorithms=('HS256',), leeway=90, token=None):
         self.algorithms = algorithms
         self.leeway = leeway
+        self.token = token
 
     @abc.abstractmethod
     def get_shared_secret(self, client_key):
-        """Get the shared secret associated with the client key.
-
-        Subclasses of this abstract base class *must* implement this method.
-
-        Use the client key to retrieve the shared secret (presumably) from a
-        persistent store of which this abstract base class does not need to
-        know the details.
-
-        This is the shared secret that was used to sign the JWT token and can
-        be used to verify its authenticity.
-
-        Args:
-            client_key (string): client key
-
-        Returns:
-            string: shared secret used to sign the JWT token
-        """
-        raise NotImplementedError
+        shared_secret = 'ATCObQrv98enQA7YN6wo6GrDqqQCiDO4rQDdZCdAfHVJURZW9Peil5UKlg'
+        return shared_secret
+        # """Get the shared secret associated with the client key.
+        #
+        # Subclasses of this abstract base class *must* implement this method.
+        #
+        # Use the client key to retrieve the shared secret (presumably) from a
+        # persistent store of which this abstract base class does not need to
+        # know the details.
+        #
+        # This is the shared secret that was used to sign the JWT token and can
+        # be used to verify its authenticity.
+        #
+        # Args:
+        #     client_key (string): client key
+        #
+        # Returns:
+        #     string: shared secret used to sign the JWT token
+        # """
+        # raise NotImplementedError
 
     def authenticate(self, http_method, url, token):
         """Extract the JWT token from the `Authorization` header, or if not
@@ -125,7 +162,13 @@ class Authenticator(object):
     def _get_token(headers=None, query_params=None):
         if headers:
             for name, value in headers.items():
+                print("-------Name---------")
+                print(name)
+                print(value)
                 if name.lower() == 'authorization':
+                    print("-------Name Auth---------")
+                    print(name)
+                    value = value["Authorization"]
                     parts = value.split()
                     if len(parts) > 1 and parts[0].lower() == 'jwt':
                         return parts[1]
@@ -135,3 +178,6 @@ class Authenticator(object):
             return value if isinstance(value, str) else value[0]
 
         raise DecodeError('JWT token not found')
+
+    # def create_token(self, uri, method='GET'):
+    #     return security.create_token(self, uri, method)

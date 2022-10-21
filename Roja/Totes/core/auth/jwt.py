@@ -1,4 +1,5 @@
 from atlassian_jwt import encode_token
+from Leia_atlassian.models.connect import *
 
 start_at = 0
 max_results = 1000
@@ -10,4 +11,5 @@ def Jwt():
     shared_secret = 'ATCObQrv98enQA7YN6wo6GrDqqQCiDO4rQDdZCdAfHVJURZW9Peil5UKlg'
     token = encode_token("POST", uri_search_pattern, key, shared_secret)
     print("Token  --- " + token)
-    return token
+    return token, key, shared_secret
+

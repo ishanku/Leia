@@ -1,17 +1,12 @@
-import atlassian
-import django_atlassian.models.connect
 import jwt
 import requests
 import sys
+from Leia_atlassian.atlassian_jwt.authenticate import *
 from Roja.Totes.core.utils.config import *
 from Roja.Totes.core.auth.jwt import *
 from Roja.Totes.core.utils.logger import *
 from Roja.Totes.jira.dataprocessor.query import query_builder
 RawCache = "RawData"
-
-from django_atlassian.backends.jira.base import *
-from django_atlassian.backends.common.base import AtlassianDatabaseConnection
-
 
 
 class Issue:
@@ -21,31 +16,25 @@ class Issue:
     start_at = 0
     uri_search_pattern = '/rest/api/3/search?%(get_opts)s&startAt=%(start_at)s&maxResults=%(max_results)s'
     getopts = query_builder()
-    connection = "get"
     apiName = "rest/api/3/search?"
     uri = "https://" + domainName() + ".atlassian.net/" + apiName
-    sc = django_atlassian.models.connect.SecurityContext
-    # Cache-Control
+    algorithms = ('HS256',)
+    leeway = 90
+    method = 'GET'
+    params = query_builder("Normal")
+    if params[1]:
+        params = params[0]
 
-    # sc = django_atlassian.models.connect.SecurityContext
+    url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
 
     def __int__(self):
-        conn_params = AtlassianDatabaseWrapper.get_connection_params(self)
-        self.connection = AtlassianDatabaseWrapper.get_new_connection(self,conn_params)
+        AuthResult = getAuthenticated(self.uri, self.params , self.headers, self.algorithms)
         return True
 
-    def get(self, jql):
-        # access_token = Jwt()
-        # conn_params = AtlassianDatabaseWrapper.get_connection_params(self)
-        # self.connection = AtlassianDatabaseWrapper.get_new_connection(self,conn_params)
+    def get (self, jql):
+        print("---------------I am in get-----------------")
 
-        ac = AtlassianDatabaseConnection.get_request(self,jql)
-        #AtlassianDatabaseCursor.request()
-        print("-----------ac--------------")
-        print(ac)
-        if not ac.ok:
-            print(ac.reason)
-        return ac
+        return True
 
 
 
