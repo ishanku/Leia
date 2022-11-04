@@ -1,11 +1,12 @@
 import atlassian_jwt.authenticate
 from django.shortcuts import render
+from requests.auth import HTTPBasicAuth
 import json
 from django.views.decorators.clickjacking import xframe_options_exempt
 # For Class Based Views
 from django.views import View
 # Custom Logger
-from requests.auth import HTTPBasicAuth
+
 
 import Leia_atlassian.backends.common.base
 from Roja.Totes.core.utils.logger import *
@@ -34,7 +35,13 @@ def getTotal(request, status='Done'):
     #return HttpResponse(response, content_type='application/json')
 
 #@xframe_options_exempt
-class index(View):
+def index(request):
+    log("Executing Function " + whoami())
+    return render(request, "index.html")
+
+
+#@xframe_options_exempt
+class index1(View):
 
     method = 'GET'
     apiName = "rest/api/3/search?"
