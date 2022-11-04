@@ -17,15 +17,15 @@ from django.contrib.auth.models import User
 from django.db.models.signals import class_prepared
 from django.db.models.manager import Manager, EmptyManager
 
-from django_atlassian.models.connect import SecurityContext
-from django_atlassian.backends.jira.base import DatabaseConvertion
-from django_atlassian.models.fields import ArrayField
+from Leia_atlassian.models.connect import SecurityContext
+from Leia_atlassian.backends.jira.base import DatabaseConvertion
+from Leia_atlassian.models.fields import ArrayField
 
 from jira import JIRA
 from jira.resources import Issue as JiraIssue
 from jira.resilientsession import ResilientSession
 
-logger = logging.getLogger('django_atlassian')
+logger = logging.getLogger('Leia_atlassian')
 
 class IssueManager(Manager):
 

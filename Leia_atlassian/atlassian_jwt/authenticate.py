@@ -16,33 +16,36 @@ from jwt import DecodeError
 from .url_utils import hash_url, parse_query_params
 
 
-def getAuthenticated(url, params, headers, algorithms, leeway=90, token=None, http_method='GET'):
+def getAuthenticated(url, params, headers, algorithms, leeway=90, jwt_token=None, token=None):
     # token = Authenticator._get_token(
     #     headers=headers,
     #     query_params=parse_query_params(url))
-
-    if not token:
-        print("---------get token----------")
+    http_method = 'GET'
+    if not jwt_token:
+        print("get token")
         token = Authenticator._get_token(
             headers=headers,
             query_params=parse_query_params(url))
 
-    claims = jwt.decode(token, algorithms=algorithms,
+    claims = jwt.decode(jwt_token, algorithms=algorithms,
                         options={"verify_signature": False})
     print("---------------------------------------------------------")
+    print(claims)
     print(claims['qsh'])
     print("---------------------------------------------------------")
     print(hash_url(http_method,url))
-    if claims['qsh'] != hash_url(http_method, url):
-        raise DecodeError('qsh does not match')
+    # if claims['qsh'] != hash_url(http_method, url):
+    #     raise DecodeError('qsh does not match')
     shared_secret = 'ATCObQrv98enQA7YN6wo6GrDqqQCiDO4rQDdZCdAfHVJURZW9Peil5UKlg'
     # verify shared secret
+    print(":::::::::::;audience::::::")
+    print(claims.get('aud'))
     jwt.decode(
-        token,
-        audience=claims.get('aud'),
-        key=shared_secret,
-        algorithms=algorithms,
-        leeway=leeway)
+        token, algorithms=algorithms, verify=False)
+        # audience=claims.get('aud'),
+        # key = shared_secret,
+        # algorithms=algorithms,
+        # leeway=leeway,options={'verify_aud': False})
 
     # return client key, claims
     AuthResult = collections.namedtuple('AuthResult',
@@ -86,10 +89,10 @@ class Authenticator(object):
         self.leeway = leeway
         self.token = token
 
-    @abc.abstractmethod
-    def get_shared_secret(self, client_key):
-        shared_secret = 'ATCObQrv98enQA7YN6wo6GrDqqQCiDO4rQDdZCdAfHVJURZW9Peil5UKlg'
-        return shared_secret
+    # @abc.abstractmethod
+    # def get_shared_secret(self, client_key):
+    #     shared_secret = 'ATCObQrv98enQA7YN6wo6GrDqqQCiDO4rQDdZCdAfHVJURZW9Peil5UKlg'
+    #     return shared_secret
         # """Get the shared secret associated with the client key.
         #
         # Subclasses of this abstract base class *must* implement this method.
@@ -147,7 +150,8 @@ class Authenticator(object):
         jwt.decode(
             token,
             audience=claims.get('aud'),
-            key=self.get_shared_secret(claims['iss']),
+          #  key=self.get_shared_secret(claims['iss']),
+            key=self.shared_secret,
             algorithms=self.algorithms,
             leeway=self.leeway)
 

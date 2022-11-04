@@ -31,11 +31,13 @@ class AtlassianDatabaseIntrospection(BaseDatabaseIntrospection):
 
 
 class AtlassianDatabaseConnection(object):
-    def __init__(self, uri, user, password, sc):
+    def __init__(self, uri, user, password, sc, token):
         self.uri = uri
         self.user = user
         self.password = password
         self.sc = sc
+        self.token = token
+        print("::::::::::::::::Called Atlassian DB Connections")
 
     def rollback(self):
         return True
@@ -45,6 +47,7 @@ class AtlassianDatabaseConnection(object):
 
     def get_request(self, part):
         uri = self.uri + part
+
         headers = {'Accept': 'application/json'}
         if self.user and self.password:
             r = requests.get(uri, auth=(self.user, self.password), headers=headers)

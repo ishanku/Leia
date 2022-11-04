@@ -20,11 +20,11 @@ def log(message, key='info', console=True, app_name=None):
         print("Log Message : " + message)
         print(decorator)
     if key == "info":
-        logger.info("App Name: " + app_name + "| Function Name: " + called_by() + "| message: " + message)
+        logger.info("App Name: " + app_name + "::::: Function Name: " + called_by() + ":::::  message: " + message)
     if key == "error":
-        logger.error("App Name: " + app_name + "| Function Name: " + called_by() + "| message: " + message)
+        logger.error("App Name: " + app_name + "::::: Function Name: " + called_by() + ":::::  message: " + message)
     if key == 'debug':
-        logger.debug("App Name: " + app_name + "| Function Name: " + called_by() + "| message: " + message)
+        logger.debug("App Name: " + app_name + "::::: Function Name: " + called_by() + ":::::  message: " + message)
 
 
 # noinspection PyProtectedMember

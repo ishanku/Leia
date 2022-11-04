@@ -40,6 +40,6 @@ DATABASES = {
                 }
         }
 
-DATABASE_ROUTERS = ['django_atlassian.router.Router']
+DATABASE_ROUTERS = ['Leia_atlassian.router.Router']
 
 APPEND_SLASH = False

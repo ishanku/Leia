@@ -1,6 +1,7 @@
 import jwt
 import requests
 import sys
+import hashlib
 from Leia_atlassian.atlassian_jwt.authenticate import *
 from Roja.Totes.core.utils.config import *
 from Roja.Totes.core.auth.jwt import *
@@ -10,30 +11,24 @@ RawCache = "RawData"
 
 
 class Issue:
-    key = 'b1c7cfe8-9f87-3f19-83f2-83e38a5ae089'
-    sharedSecret = 'ATCObQrv98enQA7YN6wo6GrDqqQCiDO4rQDdZCdAfHVJURZW9Peil5UKlg'
-    max_results = 100
-    start_at = 0
     uri_search_pattern = '/rest/api/3/search?%(get_opts)s&startAt=%(start_at)s&maxResults=%(max_results)s'
-    getopts = query_builder()
-    apiName = "rest/api/3/search?"
-    uri = "https://" + domainName() + ".atlassian.net/" + apiName
     algorithms = ('HS256',)
     leeway = 90
-    method = 'GET'
     params = query_builder("Normal")
     if params[1]:
         params = params[0]
 
-    url = "https://" + domainName() + ".atlassian.net/" + apiName + "?" + params
-
     def __int__(self):
-        AuthResult = getAuthenticated(self.uri, self.params , self.headers, self.algorithms)
+        url = self.uri + "?" + self.params
+        AuthResult = getAuthenticated(url, self.params , self.headers, self.algorithms)
         return True
 
     def get (self, jql):
         print("---------------I am in get-----------------")
-
+        iss = self.client_key
+        iat = 1300819370
+        exp = 1300819380
+        qsh = hashlib.sha256(self.method + "&" + self.apiName+ "&" + "limit=20")
         return True
 
 

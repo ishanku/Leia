@@ -46,6 +46,7 @@ def query_builder(dashboard='Performance Score', key="Created", startAt=0, durat
         else:
             jql = jql + time_query
         jql = jql + "&maxResults=100&startAt=" + str(startAt)
+
     except:
         message = str(sys.exc_info()[1]) + "\n" + "###########\n" + str(sys.exc_info())
         status = bool(False)

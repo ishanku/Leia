@@ -28,6 +28,5 @@ class SecurityContext(models.base.Model):
         token = atlassian_jwt.encode_token(method, uri, self.key, self.shared_secret)
         return token
 
-
     def __unicode__(self):
         return "%s: %s" % (self.key, self.host)

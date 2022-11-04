@@ -14,10 +14,10 @@ def issue(params):
         print("--------Params-------")
         print(params)
         print(url)
-        userID = apiUser()
-        apiToken = apiKey()
+        # userID = apiUser()
+        # apiToken = apiKey()
 
-        auth = HTTPBasicAuth(userID, apiToken)
+        # auth = HTTPBasicAuth(userID, apiToken)
 
         headers = {
             "Accept": "application/json"
@@ -28,7 +28,7 @@ def issue(params):
             url,
             headers=headers,
             params=params,
-            auth=auth
+            # auth=auth
         )
         # ############################ Verify the Total Record Count, If more than the max results#####################
     except:
@@ -38,3 +38,12 @@ def issue(params):
         print(message)
         return status
     return result
+
+def buildUrl(what="jira"):
+    print("I am in Build URL")
+    protocol="https"
+    #siteName=str(os.environ.get('site.name'))
+    if what=="jira":
+        apiName="rest/api/3/search"
+        url=protocol + "://" + domainName() +".atlassian.net/" + apiName
+        return url

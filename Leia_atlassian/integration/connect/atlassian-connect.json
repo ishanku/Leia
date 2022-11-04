@@ -4,7 +4,7 @@
      "key": "com.totesoft.wake",
      "baseUrl": "https://8712-5-180-208-246.ngrok.io",
      "vendor": {
-         "name": "Totesoft LLC <br>, Altanta, GA <br> USA",
+         "name": "Totesoft LLC \n Altanta, GA <br> USA",
          "url": "https://www.totesoft.com"
      },
      "enableLicensing": true,
@@ -16,7 +16,7 @@
         "update": "atlassian/installed/",
       "uninstalled": "atlassian/installed/"
       },
-      "scopes": ["read", "write", "ACT_AS_USER"],
+      "scopes": ["read", "write", "ACT_AS_USER", "ADMIN"],
      "apiVersion": 1,
      "modules": {
          "generalPages": [

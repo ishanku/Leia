@@ -36,71 +36,48 @@ def getTotal(request, status='Done'):
 #@xframe_options_exempt
 class index(View):
 
-    method = 'GET'
-    apiName = "rest/api/3/search?"
-    base_instance_url = "https://" + domainName() + ".atlassian.net/"
-    client_key = get_client_key(base_instance_url)
-    key = client_key
-    shared_secret = get_shared_secret(client_key)
-    leeway = 90
-    uri = base_instance_url + apiName
-    max_results = 100
-    start_at = 0
-    algorithms = ('HS256',)
-    token = None
-    user = None
-    password = None
-    sc = None
-
     def __int__(self):
         params = "jql=status=Done"
         url = self.uri + params
-        token = SecurityContext.create_token(self, self.method, url)
-        self.token = token
 
     def get(self, request):
         params = query_builder("Performance Score")
         if params[1]:
             params = params[0]
-        # params = ""
-        # params = "jql='Created'>=startOfDay(-7)"#&accountId=5fa07038c2e5390077b0396c"
-        # params = "jql=status=Done"
-        # #params = "userAccountId=5fa07038c2e5390077b0396c&diplayName='Gokila Suresh Kumar'"
-
+        #params = "jql='Created'>=startOfDay(-7)"#&accountId=5fa07038c2e5390077b0396c"
+        #params = "userAccountId=5fa07038c2e5390077b0396c&diplayName='Gokila Suresh Kumar'"
         url = self.uri + params
 
-
-
-        token = SecurityContext.create_token(self, self.method, url)
-        claims = jwt.decode(token, algorithms=self.algorithms,
-                            options={"verify_signature": False})
+        headers = {'Content-Type': 'application/json'}
 
         """ working """
         #url = self.base_instance_url + "rest/api/3/user/search?accountId=5fa07038c2e5390077b0396c"
         #url = "https://applebillingcredentialing.atlassian.net/rest/api/3/search?jql='Created'>=startOfDay(-7)"
         #url = "https://applebillingcredentialing.atlassian.net/rest/api/3/field"
 
-        response = GetJiraResponse(params)
-        if response.ok:
+        #headers.update({'Authorization': 'Bearer {}'.format(token)})
+        #headers.update({'Authorization': 'jwt {}'.format(token)})
+
+        r = GetJiraResponse(params, headers)
+        if r.ok:
             print("::::::::::::::::::::")
             print(url)
-
             print("::::::::::::::::::::")
         else:
             print("::::::::::::::::::::")
             print(":::::error occured:::::::")
             print(url)
+            print(r)
             #print(r.text)
         return render(request, "index.html")
 
 
-def GetJiraResponse(params):
+def GetJiraResponse(params, headers):
     log("Starting Function " + whoami())
 
     ####################### Build URL, Header and Params #######################
     apiName = "rest/api/3/search"
     url = "https://"+domainName()+".atlassian.net/" + apiName
-    headers = {'Content-Type': 'application/json'}
 
     userID=apiUser()
     apiToken=apiKey()
