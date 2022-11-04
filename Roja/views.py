@@ -34,7 +34,7 @@ def getTotal(request, status='Done'):
     return response
     #return HttpResponse(response, content_type='application/json')
 
-#@xframe_options_exempt
+@xframe_options_exempt
 def index(request):
     log("Executing Function " + whoami())
     return render(request, "index.html")
