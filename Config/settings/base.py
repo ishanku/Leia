@@ -42,6 +42,7 @@ from Config.modules.auth import *  # noqa
 from Config.modules.statics import *
 from Config.modules.logger import *  # noqa
 from Config.modules.numbers import * # noqa
+from Config.modules.caches import * # noqa
 
 
 ROOT_URLCONF = 'Leia.urls'

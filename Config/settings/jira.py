@@ -13,7 +13,7 @@ ALLOWED_HOSTS = [
                 '127.0.0.1',
                 'gruffalo.io',
                 'ajishra.herokuapp.com',
-                '9c90-5-180-208-246.ngrok.io'
+                '8712-5-180-208-246.ngrok.io'
                 ]
 DATABASES = {
     'default': {

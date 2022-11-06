@@ -7,7 +7,6 @@ if env('CURRENT_ENV') == "dev":
 
 DEBUG = True
 
-
 ALLOWED_HOSTS = [
                 'localhost',
                 '127.0.0.1',
@@ -15,7 +14,6 @@ ALLOWED_HOSTS = [
                 'ajishra.herokuapp.com',
                 '8712-5-180-208-246.ngrok.io'
                 ]
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

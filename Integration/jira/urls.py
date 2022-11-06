@@ -23,5 +23,8 @@ app_name = 'integration.jira'
 
 urlpatterns = [
     path("atlassian-connect", views.atlassian, name='atlassian'),
-   # path("total/<str:task_status>", Total.as_view(), name="total"),
+    path("total/<str:status>", views.getTotal, name="total"),
+    path("issues/<str:how>", views.getData, name="getData"),
+    path("wake/data/<str:how>", views.getData, name="getData"),
+    path("wake/rawdata", views.getRawData, name="getRawData"),
 ]

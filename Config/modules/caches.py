@@ -1,8 +1,13 @@
+import environ
+from Config.basepath import *
+
+env = environ.Env()
+
 CACHES = {
     'default': {
         # 'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         "BACKEND": "django_redis.cache.RedisCache",
-        'LOCATION': 'redis://default:' + os.environ.get("REDIS_PASSWORD") + '@' + os.environ.get('REDIS_URL'),
+        'LOCATION': 'redis://default:' + env("REDIS_PASSWORD") + '@' + env('REDIS_URL'),
         "TIMEOUT": 60,
         "PICKLE_VERSION": 2,
         "OPTIONS": {
