@@ -11,7 +11,7 @@ from Roja.Totes.core.utils.file import *
 from Roja.Totes.core.utils.config import *
 from Roja.Totes.core.utils.logger import *
 from Roja.Totes.jira.dataprocessor.query import *
-from Roja.Totes.jira.cache.setCache import *
+from Roja.Totes.core.cache.setCache import *
 from Roja.Totes.jira.dataprocessor.query import query_builder, build_time_query
 from Roja.Totes.jira.mapper.issues import *
 from Roja.Totes.jira.api.jira import *
@@ -24,7 +24,7 @@ PROJECT_DIR = Path(__file__).resolve().parent.parent
 
 Decorator="############################################################################################################"
 
-RawCacheName="RawDataFromBatch"
+RawCacheName="RawDataBatch"
 ExtractedCache="ExtractedFields"
 ProcessedCache="ProcessedData"
 console=bool(True)
@@ -42,15 +42,15 @@ AllTaskJQL = 'jql='
 
 @xframe_options_exempt
 def getTotal(request, status='Done'):
-    log("Starting Function ", False)
+    #log("Starting Function ", False)
     jql = AllTaskJQL + 'status="' + status + '"'
     response = GetJiraResponse(jql)
     if response.ok:
         response = response.json()['total']
-        log("Called Get Total For status -- " + status + " - issue count - " + str(response))
+        #log("Called Get Total For status -- " + status + " - issue count - " + str(response))
     else:
         response = json.loads(json.dumps({"error": response.text}))
-        log("Error Occured in call for " + status)
+        #log("Error Occured in call for " + status)
     return HttpResponse(response, content_type='application/json')
 
 

@@ -3,7 +3,7 @@ from Roja.Totes.core.utils.logger import *
 from Roja.Totes.core.utils.date import millis
 from Roja.Totes.jira.processor.multiprocessor import CalculateSubProcess
 from Roja.Totes.jira.mapper.issues import queryBuilder
-from Roja.Totes.jira.cache.setCache import setRedisCache
+from Roja.Totes.core.cache.setCache import setRedisCache
 from Roja.Totes.core.utils.config import apiKey, apiUser, domainName
 from multiprocessing import Pool, Process
 from requests.auth import HTTPBasicAuth

@@ -51,6 +51,7 @@ def process_issues(data):
                         issue_id = issue_key.split("-")[1]
                         field_data = issue['fields']
                         assignee = field_data['assignee']
+                        print("::::::::::::::::" + assignee)
                         if assignee is not None:
                             account_id = assignee['accountId']
                             display_name = assignee['displayName']
