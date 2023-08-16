@@ -1,5 +1,12 @@
-from Roja.Totes.core.utils.logger import *
+import json
+
+from Roja.Totes.core.utils.file import *
 import sys
+import traceback
+import pandas as pd
+import logging
+
+logger = logging.getLogger("Leia.General")
 
 
 def check_key(data, search_value):
@@ -9,49 +16,41 @@ def check_key(data, search_value):
     return False
 
 
+LoggingLevel = "DEBUG"
+
+
 # Filters the JSON for required Fields and returns as JSON Array
 # noinspection PyBroadException,SpellCheckingInspection
-def process_issues(data):
-    log("Starting Function " + whoami())
-    print("Length of the Array " + str(len(data)))
-    status = bool(True)
+def process_issues(data, filterContext=None):
+    """  Process_Issues Loops through the Issues and extracts the required fields """
 
-    message = None
+    """ Initialization Starts """
+
+    libraryName = "dataprocessor.extracts.process_issues"
+    logger.info(" library: " + libraryName + "Activity --- Starting Function " + whoami())
+    error = bool(False)
+
+    message = page_count = claim_count = error_count = other_count = weight = issue_url = time_spent = task_name = None
+    parent_key = parent_summary = parent_status = parent_description = parent_priority = parent_issue_type = parent_issue_id = None
     return_data = []
     base_return = []
     iteration = 0
-    page_count = None
-    claim_count = None
-    error_count = None
-    other_count = None
-    weight = None
-    issue_url = None
-    time_spent = None
-    task_name = None
-    parent_key = None
-    parent_summary = None
-    parent_status = None
-    parent_description = None
-    parent_priority = None
-    parent_issue_type = None
-    parent_issue_id = None
-    position = "Starting issue Processor"
+    data_length = 0
 
+    """ Initialization Ends """
     try:
-        data_length = str(len(data))
-        log("Array Builder Received Data Length " + data_length)
-        for issueArray in data:
-            if iteration < len(data):
-                log("No of Issues in the First Level " + str(len(issueArray)))
-                for issue in issueArray:
+        if data is not None:
+            data_length = str(len(data))
+            for issue in data:
+                if iteration < len(data):
+                    logger.debug("No of Issues in the First Level " + str(len(issue)))
+                    # for issue in issueArray:
                     try:
-                        print("#################################################  " + str(iteration) + "^^^^^^")
-
+                        logger.debug("#################################################  " + str(iteration) + "^^^^^^")
                         issue_key = issue['key']
                         issue_id = issue_key.split("-")[1]
                         field_data = issue['fields']
                         assignee = field_data['assignee']
-                        print("::::::::::::::::" + assignee)
                         if assignee is not None:
                             account_id = assignee['accountId']
                             display_name = assignee['displayName']
@@ -65,13 +64,13 @@ def process_issues(data):
                             team_name = field_data['customfield_10089']
                             if check_key(field_data, 'time_spent'):
                                 time_spent = field_data['time_spent']
-                            print("Extracted Phase 1 ~~~~~~~~~~~~~~~~~~~~")
+                            logger.debug("Extracted Phase 1 ~~~~~~~~~~~~~~~~~~~~")
                             #################################################
                             if check_key(field_data, "parent"):
                                 parent = field_data['parent']
                             else:
                                 parent = None
-                            print("Extracted Phase 2 Parent Main ~~~~~~~~~~~~~~~~~~~~")
+                            logger.debug("Extracted Phase 2 Parent Main ~~~~~~~~~~~~~~~~~~~~")
                             if parent is not None:
                                 parent_key = parent['key']
                                 parent_fields = parent['fields']
@@ -84,7 +83,7 @@ def process_issues(data):
                                     parent_priority = parent_fields['priority']['name']
                                     parent_issue_id = parent_fields['issuetype']['id']
                                     parent_issue_type = parent_fields['issuetype']['name']
-                                print("Extracted Phase 2 ~~~~~~~~~~~~~~~~~~~~")
+                                logger.debug("Extracted Phase 2 ~~~~~~~~~~~~~~~~~~~~")
 
                             client_name = field_data['customfield_10038']
                             if client_name is not None:
@@ -115,7 +114,7 @@ def process_issues(data):
                             if issue_type is not None:
                                 issue_type = issue_type['name']
                                 issue_url = field_data['issuetype']['iconUrl']
-                            print("Extracted Phase 2 TaskTypes ~~~~~~~~~~~~~~~~~~~~")
+                            logger.debug("Extracted Phase 2 TaskTypes ~~~~~~~~~~~~~~~~~~~~")
                             creator = field_data['creator']
                             if creator is not None:
                                 creator = creator['displayName']
@@ -133,15 +132,15 @@ def process_issues(data):
                             priority = field_data['priority']['name']
                             status = field_data['status']['name']
                             status_category = field_data['status']['statusCategory']['key']
-                            print("Extracted Phase 2 Status ~~~~~~~~~~~~~~~~~~~~")
+                            logger.debug("Extracted Phase 2 Status ~~~~~~~~~~~~~~~~~~~~")
                             resolution = field_data['resolution']
                             if resolution is not None:
                                 resolution = resolution['description']
                                 resolution_status = field_data['resolution']['name']
                             else:
                                 resolution_status = None
-                            print("Extracted Phase 2 Resolution ~~~~~~~~~~~~~~~~~~~~")
-                            print("Extracted Phase 3 ~~~~~~~~~~~~~~~~~~~~")
+                            logger.debug("Extracted Phase 2 Resolution ~~~~~~~~~~~~~~~~~~~~")
+                            logger.debug("Extracted Phase 3 ~~~~~~~~~~~~~~~~~~~~")
                             if team_name is not None:
                                 team_name = team_name['value']
                                 if issue_date is not None:
@@ -150,7 +149,7 @@ def process_issues(data):
                                         activity_date = issue_date
                                         performance_scores = score
                                         team = team_name
-                                        print("#########@@@@@@@@@@@@@@################")
+                                        logger.debug("#########@@@@@@@@@@@@@@################")
                                         base_build = {"name": name, "date": activity_date, "score": performance_scores,
                                                       "team": team}
                                         build = {
@@ -202,17 +201,29 @@ def process_issues(data):
                                         return_data.append(build)
                                         iteration = iteration + 1
                     except KeyError:
-                        print(str(sys.exc_info()[1]))
+                        logger.error(str(sys.exc_info()))
+                        logger.error(traceback.format_exc())
                         continue
-        # df=pd.json_normalize(return_data)
-        # df=df.sort_values(['name','date'])
-        # df['score']=pd.to_numeric(df['score'])
-        # df=df.groupby(['name','date'])['score'].sum()
-        # return_data=df.to_json()
-        print("Total Given Length ----: " + data_length)
+                    if filterContext is not None:
+                        return_data = filterData(return_data, filterContext)
+            logger.info("Returndata from " + whoami() + " --- " + str(len(return_data)))
+
+        logger.info("Total Given Length ----: " + str(data_length))
     except:
         message = str(sys.exc_info()[1]) + "\n" + "###########\n" + str(sys.exc_info())
-        status = bool(False)
-        print("Error Occured in Issue Processor " + message)
-        print("++++++++++++++++++++++++++++++++")
-    return return_data, base_return, status, message
+        error = bool(True)
+        logger.error("Error Occured in Issue Processor " + message)
+        logger.error("++++++++++++++++++++++++++++++++")
+        logger.error(traceback.format_exc())
+    return return_data, base_return, error, message
+
+def filterData(data, filterContext):
+    """Filter the json data based on the context"""
+    context_array = filterContext.split(",")
+
+def rawArray(dataArray):
+    rawData = []
+    for d in dataArray:
+        for r in d:
+            rawData.append(r)
+    return rawData

@@ -24,7 +24,7 @@ urlpatterns = [
     path("", include('Roja.urls', namespace='Roja')),
   #  path("/", include('Roja.urls')),
 
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.SOCIALACCOUNT_ENABLED:
 # ---- Social Auth------------

@@ -1,112 +1,57 @@
-from email import message
-from requests.auth import HTTPBasicAuth
-import json
-import requests
-import os
-import sys
 from Roja.Totes.core.utils.date import millis
-#from Roja.Totes.core.utils.errors import ErrorHandler
 from Roja.Totes.core.utils.logger import *
 from Roja.Totes.core.utils.config import domainName, apiKey, apiUser
 from multiprocessing import Pool, Process
-from requests.auth import HTTPBasicAuth
-from Roja.Totes.jira.api.batch import BatchIt
+from Roja.Totes.jira.handlers.batch import *
+from Roja.Totes.jira.api.call import CallJiraAPI
+import requests
+import traceback
+import sys
 
-def CallJiraSingle(params):
-    log("Starting Function " + whoami())
+def GetJiraIssues(params, duration=None):
 
-    ####################### Build URL, Header and Params #######################
-    url = buildUrl("jira")
-    userID = apiUser()
-    apiToken = apiKey()
+    libraryName = "jira.api.jira.GetJiraIssues"
+    logger.info("Library " + libraryName + " Starting Function " + whoami())
+    data = None
+    errorMessage = None
+    error = bool(False)
 
-    auth = HTTPBasicAuth(userID, apiToken)
-    headers = {
-    "Accept": "application/json"
-    }
-    ####################### First Call to Jira ###################################################################
-    response = requests.request(
-                                "GET",
-                                url,
-                                headers=headers,
-                                params=params,
-                                auth=auth
-                                )    
-    ############################# Verify the Total Record Count, If more than the max results#####################
-    return response
-
-def GetJiraIssues(params):
-    log("Starting Function " + whoami())
-    errorMessage=None
-    error=bool(False)
-    ####################### Build URL, Header and Params #######################
-    url = buildUrl("jira")
-    print(url)
-    print(params)
-
-    userID=apiUser()
-    apiToken=apiKey()
-    auth = HTTPBasicAuth(userID, apiToken)
-    headers = {
-    "Accept": "application/json"
-    }
-    print("Calling Jira")
-    ####################### First Call to Jira ###################################################################
     try:
-        response = requests.request(
-                                    "GET",
-                                    url,
-                                    headers=headers,
-                                    params=params,
-                                    auth=auth
-                                    )    
+        response = CallJiraAPI(params)
     ############################# Verify the Total Record Count, If more than the max results#####################
-        #print("Response " + response.text)
-
         if response.ok:
-            data=response.json()
-            total=data['total']
-            print("Total Records Found" + str(total))
-            if total < 100:    
-                return data
+            data = response.json()
+            total = data['total']
+            logger.info("Total Records Found --- " + str(total))
+            if total < 100:
+                return data, error, errorMessage
             else:
-                loopCount=int((total/100))
-                data,errorMessage,error=BatchIt(loopCount)
+                loopCount = int((total/100))
+                """  Data Returned in the below step is RawData """
+                data, errorMessage, error = BatchIt(loopCount, duration)
                 if not error:
-                    return data
-                else:
-                    return "errorMessage"
+                    return data, error, errorMessage
         else:
-            return response.text
+            error = bool(True)
+            errorMessage = response.text
+            return data, error, errorMessage
     except:
-        #message=str(sys.exc_info())
-        # errorMessage,error = ErrorHandler(sys.exc_info())
         errorMessage = str(sys.exc_info())
-        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        print(whoami())
-        print("Error Message: " + errorMessage)
+        logger.error("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        logger.error(whoami())
+        logger.error("Error Message: " + str(errorMessage))
+        logger.error(traceback)
         error = bool(True)  
-        return errorMessage
-    
+        return data, error, errorMessage
 
 
 def CallJiraBatch(qBatch,ProcessCount,BatchNumber):
 
-    print("I am in Call Jira as Call Jira")
+    logger.info("Starting " + whoami())
     pool = Pool(processes=ProcessCount)
     start_time = millis()
-    response = pool.map(CallJiraSingle, qBatch)
+    response = pool.map(CallJiraAPI, qBatch)
 
-    print("\nTotal took " + str(millis() - start_time) + " ms\n")
-    print(response)
+    logger.info("\nTotal took " + str(millis() - start_time) + " ms\n")
+    logger.debug(response)
     return response
-
-
-def buildUrl(what="jira"):
-    print("I am in Build URL")
-    protocol="https"
-    #siteName=str(os.environ.get('site.name'))
-    if what=="jira":    
-        apiName="rest/api/3/search"
-        url=protocol + "://" + domainName() +".atlassian.net/" + apiName
-        return url

@@ -1,97 +1,97 @@
-//let dateFormatter = d3.timeFormat("%Y-%m-%d");
-//let dateParser = d3.timeParse("%Y-%m-%d");
-
-let SelectedBarValue,SelectedBarTitle;
-let parseDate = d3.timeParse("%Y-%m-%d");
-let promises
-let barData,rBarData,rTableData,detailedData;;
-
-let dashboard='Performance Score'
+console.log("Welcome to Totesoft Dashboard")
 
 what(dashboard)
 
 function what(dashboard='Performance Score'){
 
-if (dashboard==='Performance Score')
-{
+    console.log("starting the function for : " , dashboard)
 
-promises = [
-     d3.text(totalDone),              //0
-     d3.text(totalReworkDone),        //1
-     d3.text(totalPending),           //2
-     d3.text(totalAssigned),          //3
-     d3.text(totalUnAssigned),        //4
-     d3.json(wakeData),                  //5
-     d3.json(wakeDataExtract)            //6
-];
+    if (dashboard==='Performance Score')
+        {
+            promises = [
+
+                 d3.text(totalDone),              //0
+                 d3.text(totalReworkDone),        //1
+                 d3.text(totalPending),           //2
+                 d3.text(totalAssigned),          //3
+                 d3.text(totalUnAssigned),        //4
+                 d3.json(wakeData),                  //5
+                 d3.json(wakeDataExtract)            //6
+            ];
+        }
 }
-// else if (dashboard==='Client Name'){
-//
-//    // d3.text('')
-//
- }
+
+function reloadBarChart(){
+        createVis(rBarData)
+}
+
 //
 Promise.all(promises)
-     .then(function (data) {
+    .then(function (data) {
+        initMainPage(data)
+    })
+    .catch(function (err) {
+        console.log(err)
+    });
 
-        let Done, Rework, Pending, Assigned, Unassigned;
+function initMainPage(data) {
 
+    // log data
+    //console.log('check out the data', data[5]);
 
-         Done = data[0]
-         Rework = data[1]
-         Pending = data[2]
-         Assigned = data[3]
-         Unassigned = data[4]
+    // Init Single Box
+    Done = data[0]
+    Rework = data[1]
+    Pending = data[2]
+    Assigned = data[3]
+    Unassigned = data[4]
 
-        singles(Done, Rework, Pending, Assigned, Unassigned);
+    //-----------------------------------------------------------------------------------------------Init Singles   ---- 1
 
+    singles(Done, Rework, Pending, Assigned, Unassigned);                                            //firstRow.js
 
-          // let tData=data[5]
-          // console.log("Logging Fine Data !")
-          // console.log(tData);
-          // let detailedData=data[6]
+    //-----------------------------------------------------------------------------------------------Init Table Data
+    let tData=data[5]
+    detailedData=data[6]
 
-        //barData = new Wrangle(tData,"score","name")
+    //----------------------------------------------------------------------------------------------- Data Wrangling For Barchart
+    console.log('Starting wrangle for bardata');
 
-        SelectedBarValue="score";
-        SelectedBarTitle="Performance Score";
+    barData = new Wrangle(tData,"score","name")
 
-        //barchart=new BarVis("bar-chart",barData,"Performance Score","score")
+   //----------------------------------------------------------------------------------------------- Data Wrangling For Table (js/util/wrangler.js)
+    console.log('Starting wrangle for name wise');
+    let getTHeader, getTRows,nameWise = new Wrangle(tData, "score","name", "date",["team"],true)
 
-        tableData = new Wrangle(tData,"score","date","name",["team"])
-       //console.log(tableData);
+    //console.log(nameWise)
+    //Init table
+    tableData = new Wrangle(tData,"score","date","name",["team"])
+    //console.log(tableData);
 
-        reloadBarChart(tableData);
-        reloadTable(tableData);
+    SelectedBarValue="score";
+    SelectedBarTitle="Performance Score";
 
-        getHeaders(tableData[0]);
-        buildTableStart(tableData[0],tableData,detailedData)
-        buildTable(tableData,detailedData)
+    barData.forEach(function(bData) {
 
-     })
-     .catch(function (err) {
-         console.log("Error Occurred :  " + err)
-     });
+        bData.score += bData.score
 
+    });
+    //-----------------------------------------------------------------------------------------------Init Bar Chart   ---- 2
+    barchart = new CircleVis("bar-chart",barData,SelectedBarTitle,SelectedBarValue)
 
-function singlesHeader(){
+    rTableData = tableData
+    rBarData = tableData
 
-    let sdiv=d3.selectAll("#singles-header")
-    sdiv.append('div').attr("class","singles-header").html("Done")
-    sdiv.append('div').attr("class","singles-header").html("Rework Done")
-    sdiv.append('div').attr("class","singles-header").html("Pending")
-    sdiv.append('div').attr("class","singles-header").html("Assigned")
-    sdiv.append('div').attr("class","singles-header").html("UnAssigned")
+   //-----------------------------------------------------------------------------------------------Init Table Load   ---- 3
+
+    loadTable(tableData,detailedData)
+    //scoreTable(detailedData,"score-table")
+}
+//Table in the Third Row
+function loadTable(tableData,detailedData)
+{
+            // getHeaders(tableData[0]);
+            StartBuildingTablePrerequisites(tableData[0],tableData,detailedData,"myDynamicFilterTable") //js/table/startBuild
+            BuildTable(tableData,detailedData,"myDynamicTable")                   //js/table/startBuild
 
 }
-function singles(totalDone,totalReworkDone,totalPending,totalAssigned,totalUnAssigned){
-
-singlesHeader()
-let sdiv=d3.selectAll("#singles")
-sdiv.append('div').attr("class","singles").html(totalDone)
-sdiv.append('div').attr("class","singles").html(totalReworkDone)
-sdiv.append('div').attr("class","singles").html(totalPending)
-sdiv.append('div').attr("class","singles").html(totalAssigned)
-sdiv.append('div').attr("class","singles").html(totalUnAssigned)
-
-    }

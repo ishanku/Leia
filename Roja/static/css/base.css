@@ -53,11 +53,16 @@ section.left {
 section.content{
     flex: none;
     width: 80vw;
-    height: 990px;
+    min-height: 30vh;
     justify-content: center; /* horizontally center items */
 }
 section.right{
     width: 2vw;
     font-size: 8px;
 }
-footer{grid-area: footer;}
+footer{
+    grid-area: footer;
+    width: 100%;
+    padding: 0;
+    background-color: black;
+}

@@ -8,7 +8,7 @@ let totalReworkDone= serverName + "Jira/total/Rework Done"
 let totalPending= serverName + "Jira/total/Pending"
 let totalAssigned= serverName + "Jira/total/Assigned"
 let totalUnAssigned= serverName + "Jira/total/Unassigned"
-
+let FilterQuery = serverName + "Jira/wake/filtered"
 
 ////////////////////// Jira Site Name Specific
 let siteURL="https://applebillingcredentialing.atlassian.net/browse/"

@@ -63,7 +63,7 @@
 //         SelectedBarValue="score";
 //         SelectedBarTitle="Performance Score";
 //
-//         //barchart=new BarVis("bar-chart",barData,"Performance Score","score")
+//         //barchart=new BarVis("bar-secondRow",barData,"Performance Score","score")
 //
 //         //tableData = new Wrangle(tData,"score","date","name",["team"])
 //        //console.log(tableData);

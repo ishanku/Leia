@@ -8,6 +8,11 @@
     <script src="{% static 'js/url.js' %}"></script>
     <script src="{% static 'js/variables.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/first_row.css' %}">
+     <link rel="stylesheet" href="{% static 'css/second_row.css' %}">
+     <link rel="stylesheet" href="{% static 'css/third_row.css' %}">
+     <link rel="stylesheet" href="{% static 'css/table.css' %}">
+     <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
 {% endblock %}
 {% block content %}
     <main class="wrapper">
@@ -23,11 +28,9 @@
                 <div id="bar-chart"></div>
                 <div id="score-table"></div>
             </div>
-            <div id="thirdrow"></div>
-            <div id="tablerow">
+            <div id="thirdrow">
                 <div id="tableDiv" class="container-fluid">
                     <div class="jumbotron presence-filter-section">
-
                         <form id="myDynamicForm" class="form-horizontal">
                             <div id="myDynamicFilterTable" class="myDynamicFilterTable">
                             </div>
@@ -41,14 +44,33 @@
 
                 </div>
             </div>
+
         </section>
         <section class="right"></section>
     </main>
 <footer>
-    @Copyright to Totesoft LLC 2022
+    @ Copyright to Totesoft LLC 2023
 </footer>
+    <script src="{% static 'js/util/randomColor.js' %}"></script>
+    <script src="{% static 'js/util/smart.js' %}"></script>
+    <script src="{% static 'js/util/wrangler.js' %}"></script>
 
-    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/Change/TaskCounter.js' %}"></script>
+
+    <script src="{% static 'js/index/firstRow.js' %}"></script>
+    <script src="{% static 'js/index/secondRow/barvis.js' %}"></script>
+    <script src="{% static 'js/index/secondRow/circle.js' %}"></script>
+    <script src="{% static 'js/index/secondRow/Performance.js' %}"></script>
+    <script src="{% static 'js/index/secondRow.js' %}"></script>
+
+    <script src="{% static 'js/index/thirdRow/GetHeader.js' %}"></script>
+
+    <script src="{% static 'js/index/thirdRow/Prerequisites.js' %}"></script>
+    <script src="{% static 'js/index/thirdRow/DynamicTableBuild.js' %}"></script>
+    <script src="{% static 'js/index/thirdRow/FilterTable.js' %}"></script>
+    <script src="{% static 'js/index/thirdRow/PopDetails.js' %}"></script>
+    <script src="{% static 'js/index/thirdRow.js' %}"></script>
+    <script src="{% static 'js/index/thirdRow/SortTable.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
 
 {% endblock %}

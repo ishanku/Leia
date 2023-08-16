@@ -5,6 +5,9 @@ if env('CURRENT_ENV') == "dev":
     dev_dotenv_path = os.path.join(BASE_DIR, 'environments/dev/.env')
     load_dotenv(dev_dotenv_path)
 
+buildPath = 'environment/'  + env('CURRENT_ENV') + '.env'
+load_dotenv(os.path.join(BASE_DIR, buildPath))
+
 DEBUG = True
 
 ALLOWED_HOSTS = [
@@ -14,6 +17,7 @@ ALLOWED_HOSTS = [
                 'ajishra.herokuapp.com',
                 '8712-5-180-208-246.ngrok.io'
                 ]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

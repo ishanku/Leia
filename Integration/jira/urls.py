@@ -27,4 +27,7 @@ urlpatterns = [
     path("issues/<str:how>", views.getData, name="getData"),
     path("wake/data/<str:how>", views.getData, name="getData"),
     path("wake/rawdata", views.getRawData, name="getRawData"),
+
+    path("wake/filtered/<str:duration>/", views.getFilteredData, name="getFilteredData"),
+    path("wake/filtered/<str:duration>/<str:clientID>/", views.getFilteredData, name="getFilteredData"),
 ]
